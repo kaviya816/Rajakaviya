@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Cozy Café</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      background: #fff8f0;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #3e2c1c;
+      color: #fff;
+      padding: 1rem 0;
+      
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    nav a {
+      color: #fff;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease, border-bottom 0.3s ease;
+    }
+
+    nav a i {
+      margin-right: 6px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover i {
+      transform: scale(1.2);
+      color: #ff914d;
+    }
+
+    nav a {
+      position: relative;
+      display: inline-block;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #ff914d;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      background: url(coffee.jpeg) no-repeat center center/cover;
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color:gainsboro;
+      text-align: center;
+      padding: 0 2rem;
+    }
+
+    .hero-content h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      
+    }
+
+    .hero-content .btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background: #ff914d;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #topBtn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color: #ff914d;
+      color: white;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+
+    #topBtn:hover {
+      background-color: #e76e2d;
+    }
+    #cart-icon {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    font-size: 24px;
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  #cart-count {
+    background-color: red;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 50%;
+    margin-left: 8px;
+    font-size: 14px;
+  }
+
+    .menu-preview {
+      background: #fff;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .menu-preview h2 {
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      color: #3e2c1c;
+    }
+
+    .menu-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .menu-card {
+      background: #fdf3e7;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .menu-card:hover {
+      transform: scale(1.05);
+    }
+
+    .menu-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-card h3 {
+      color: #3e2c1c;
+      margin-bottom: 0.5rem;
+    }
+
+    .about {
+      background: #fff8f0;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 2rem auto;
+      max-width: 1200px;
+    }
+
+    .about .heading {
+      text-align: center;
+      font-size: 2rem;
+      color: #3e2c1c;
+      margin-bottom: 1.5rem;
+    }
+
+   .about .heading span {
+      color: #ff914d;
+    }
+
+   .about-row {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .about-video {
+      flex: 1 1 40%;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .about-video video {
+       width: 100%;
+       height: auto;
+       border-radius: 10px;
+       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .about-video h3 {
+       position: absolute;
+       bottom: 10px;
+       left: 10px;
+       color: #fff;
+       font-size: 1.2rem;
+       background: rgba(0, 0, 0, 0.5);
+       padding: 0.3rem 0.8rem;
+       border-radius: 4px;
+    }
+
+    .about-text {
+       flex: 1 1 55%;
+    }
+
+    .about-text h3 {
+       font-size: 1.5rem;
+       color: #3e2c1c;
+       margin-bottom: 0.8rem;
+    }
+
+    .about-text p {
+       font-size: 1rem;
+       color: #444;
+       line-height: 1.6;
+       margin-bottom: 1rem;
+    }
+
+    .about-text .btn {
+      background:#ff914d;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .about-text .btn:hover {
+       background: #e76e2d;
+     }
+    .heading {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #3e2c1c;
+      margin-bottom: 2rem;
+      font-weight: bold;
+    }
+
+   .heading span {
+      color: #ff914d;
+    }
+
+    .contact-section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      display: flex;
+      gap: 2rem;
+      background-color: #fff8f0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    .contact-form, .contact-info {
+      flex: 1 1 45%;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .contact-form {
+      background-color: #fff;
+    }
+
+    .contact-info {
+      background-color: #fff0e6;
+    }
+
+    .contact-form h2, .contact-info h2 {
+      margin-bottom: 1rem;
+      color: #3e2c1c;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .contact-form button {
+      padding: 0.7rem 1.5rem;
+      background-color: #ff914d;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: #e76e2d;
+    }
+
+    .contact-info p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 1.5rem;
+    }
+
+    .social-icons a {
+      text-decoration: none;
+      color: #3e2c1c;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #ff914d;
+    }
+
+    .success-message {
+      color: #28a745;
+      font-weight: bold;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .contact-section {
+        flex-direction: column;
+      }
+    }
+    footer {
+        background-color: #3e2c1c; 
+        color: white;
+        padding: 30px 0;
+        font-family: Arial, sans-serif;
+    }
+
+    footer .container {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    footer .footer-row {
+       display: flex;
+       justify-content: space-between;
+       flex-wrap: wrap;
+       gap: 30px;
+    }
+
+    footer .footer-section {
+      flex: 1;
+      min-width: 250px;
+      max-width: 33%; 
+    }
+
+    footer .footer-section h4 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #FFD700; 
+      transition: color 0.3s ease; 
+    }
+
+    footer .footer-section h4:hover {
+      color: #FF6347; 
+    }
+
+    footer .footer-section p, footer .footer-section ul {
+     font-size: 14px;
+    }
+
+    footer .footer-section a {
+     color: #f0f0f0;
+     text-decoration: none;
+     position: relative;
+     transition: color 0.3s ease, padding-left 0.3s ease;
+    }
+
+    footer .footer-section a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #FFD700;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.25s ease-out;
+    }
+
+    footer .footer-section a:hover {
+      color: #FFD700; 
+      padding-left: 10px; 
+    }
+
+    footer .footer-section a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    footer .footer-section ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    footer .footer-section ul li {
+       margin: 5px 0;
+    }
+
+    footer .footer-section ul li:hover {
+       color: #FFD700; 
+       cursor: pointer;
+    }
+
+    footer .footer-bottom {
+       text-align: center;
+       margin-top: 20px;
+       font-size: 14px;
+    }
+
+    footer .footer-bottom p {
+       color: #ccc;
+    }
+
+@media (max-width: 768px) {
+  footer .footer-row {
+    /* flex-direction: column; */
+    align-items: center;
+  }
+
+  footer .footer-section {
+    max-width: 100%; 
+    margin-bottom: 20px;
+  }
+
+  footer .footer-bottom {
+    font-size: 12px; 
+  }
+}
+ .menu-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.2s;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.menu-card:hover {
+    transform: scale(1.03);
+}
+
+.menu-card .price {
+    font-weight: bold;
+    color: #2e8b57;
+    margin: 8px 0;
+}
+
+.menu-card .add-to-cart {
+    padding: 8px 12px;
+    background-color: #ff6347;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: auto; 
+}
+
+.menu-card .add-to-cart:hover {
+    background-color: #e5533d;
+}
+  
+.cart-page {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .cart-page .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .cart-page #cart-items-container {
+            margin-top: 20px;
+        }
+
+        .cart-page .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .cart-page .cart-item p {
+            font-size: 18px;
+        }
+
+        .cart-page .cart-item button {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            
+        }
+
+        .cart-page .cart-item button:hover {
+            background-color: #e5533d;
+        }
+
+        .cart-page .cart-total {
+            margin-top: 20px;
+            font-size: 20px;
+            text-align: right;
+        }
+
+        .cart-page .cart-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .cart-page .cart-footer button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cart-page .cart-footer button:hover {
+            background-color: #45a049;
+        }
+
+        .cart-page .cart-footer .cancel {
+            background-color: #e5533d;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+        .cart-page .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-page .cart-item p {
+    font-size: 18px;
+    flex: 1;
+    text-align: left;
+}
+
+.cart-page .cart-item .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between buttons */
+}
+
+.cart-page .cart-item .quantity-controls button {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6347;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-page .cart-item .quantity-controls button:hover {
+    background-color: #e5533d;
+}
+
+.cart-page .cart-item .quantity-controls .delete {
+    background: #dc3545;
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.cart-page .cart-item .quantity-controls .delete:hover {
+    background: #bd2130;
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Cozy Café</h1>
+      <nav>
+        <a href="homepage.html"><i class="fas fa-home"></i>Home</a>
+        <a href="#menu"><i class="fas fa-mug-hot"></i>Menu</a>
+        <a href="#about"><i class="fas fa-info-circle"></i>About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i>Contact</a>
+        <a href="Login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
+        <a href="#cart" id="cart-link" onclick="toggleCartPage()">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart-count">0</span>
+      </a>
+        
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Welcome to Cozy Café</h2>
+      <p>Your daily dose of warmth, coffee, and comfort.</p>
+      <a href="#menu" class="btn">View Menu</a>
+    </div>
+  </section>
+
+  <button onclick="scrollToTop()" id="topBtn" title="Go to top">↑</button>
+
+  <section id="menu" class="menu-preview">
+    <h1 class="heading"><span>Our</span> Favorites</h1>
+    <div class="menu-items" id="menuContainer">
+      <div class="menu-items">
+        <div class="menu-card" data-id="1">
+          <img src="co1.jpg" alt="Espresso">
+          <h3>Espresso</h3>
+          <p>Strong and bold shot with love.</p>
+          <p class="price">Rs.2.50</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="2">
+          <img src="co2.jpg" alt="Croissant">
+          <h3>Croissant</h3>
+          <p>Buttery and flaky, baked fresh daily.</p>
+          <p class="price">Rs.3.20</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="3">
+          <img src="latte2.jpg" alt="Latte">
+          <h3>Latte</h3>
+          <p>Smooth coffee with a creamy touch.</p>
+          <p class="price">Rs.4.00</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="4">
+          <img src="mocha.jpg" alt="Mocha">
+          <h3>Mocha</h3>
+          <p>A rich blend of chocolate and espresso.</p>
+          <p class="price">Rs.4.50</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="5">
+          <img src="muffin.jpeg" alt="Blueberry Muffin">
+          <h3>Blueberry Muffin</h3>
+          <p>Soft, fluffy, and bursting with berries.</p>
+          <p class="price">Rs.2.80</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="6">
+          <img src="chai.jpeg" alt="Chai">
+          <h3>Chai</h3>
+          <p>Aromatic spices brewed with steamed milk.</p>
+          <p class="price">Rs.3.90</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="7">
+          <img src="cappuccino.jpeg" alt="Cappuccino">
+          <h3>Cappuccino</h3>
+          <p>Rich espresso with frothy of milk.</p>
+          <p class="price">Rs.4.20</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="8">
+          <img src="banana.jpeg" alt="Banana Bread">
+          <h3>Banana Bread</h3>
+          <p>Moist and flavorful, a classic treat.</p>
+          <p class="price">Rs.3.00</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="9">
+          <img src="iced.jpeg" alt="Iced Coffee">
+          <h3>Iced Coffee</h3>
+          <p>Cool and refreshing.</p>
+          <p class="price">Rs.3.60</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="10">
+          <img src="donut.jpeg" alt="Chocolate Donut">
+          <h3>Chocolate Donut</h3>
+          <p>A sweet indulgence.</p>
+          <p class="price">Rs.2.75</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="11">
+          <img src="matcha.jpeg" alt="Matcha Latte">
+          <h3>Matcha Latte</h3>
+          <p>Green tea with creamy milk.</p>
+          <p class="price">Rs.4.10</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="12">
+          <img src="strawberry.jpeg" alt="Strawberry Tart">
+          <h3>Strawberry Tart</h3>
+          <p>Fruity, fresh, and flaky.</p>
+          <p class="price">Rs.3.85</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="13">
+          <img src="roll.jpeg" alt="Cinnamon Roll">
+          <h3>Cinnamon Roll</h3>
+          <p>Warm and gooey delight with icing.</p>
+          <p class="price">Rs.3.60</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="14">
+          <img src="flat.jpeg" alt="Flat White">
+          <h3>Flat White</h3>
+          <p>Velvety smooth espresso blend.</p>
+          <p class="price">Rs.4.00</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="15">
+          <img src="cake.jpeg" alt="Carrot Cake">
+          <h3>Carrot Cake</h3>
+          <p>Moist layers with creamy frosting.</p>
+          <p class="price">Rs.3.90</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="16">
+          <img src="herbaltea.jpeg" alt="Herbal Tea">
+          <h3>Herbal Tea</h3>
+          <p>Caffeine-free and naturally calming.</p>
+          <p class="price">Rs.2.90</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="17">
+          <img src="pumpkin.jpeg" alt="Pumpkin Spice Latte">
+          <h3>Pumpkin Spice Latte</h3>
+          <p>A fall favorite.</p>
+          <p class="price">Rs.4.30</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-card" data-id="18">
+          <img src="toffee.jpeg" alt="Toffee Nut Latte">
+          <h3>Toffee Nut Latte</h3>
+          <p>Sweet, nutty, and creamy.</p>
+          <p class="price">Rs.4.25</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+                <div class="menu-card" data-id="16">
+          <img src="choco coffee.jpeg" alt="Herbal Tea">
+          <h3>Choco Coffee</h3>
+          <p>Moist layers with creamy frosting.</p>
+          <p class="price">Rs.2.90</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+                <div class="menu-card" data-id="16">
+          <img src="cold brew coffee.jpeg" alt="Herbal Tea">
+          <h3>Cold Coffee</h3>
+          <p>Caffeine-free and naturally calming.</p>
+          <p class="price">Rs.2.90</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        
+      </div>
+      
+    </div>
+  </section>
+  <div id="cart-page" class="cart-page">
+    <div class="cart-header">
+        <h2>Your Shopping Cart</h2>
+        <i class="fas fa-times" id="close-cart" onclick="closeCartPage()"></i>
+    </div>
+    <div id="cart-items-container">
+        <!-- Cart items will be displayed here -->
+    </div>
+    <div class="cart-total">
+        <p>Total: Rs.<span id="total-price">0.00</span></p>
+    </div>
+    <div class="cart-footer">
+        <button onclick="checkout()">Checkout</button>
+        <button class="cancel" onclick="closeCartPage()">Cancel</button>
+    </div>
+</div>
+
+
+
+  <section class="about" id="about">
+    <h1 class="heading"><span>About</span> us</h1>
+  
+    <div class="about-row">
+        <div class="about-video">
+          <video src="coffee2.mp4" autoplay muted loop></video>
+          <h3>cozy vibes & great coffee</h3>
+        </div>
+        <div class="about-text">
+          <p>
+            At Cozy Café, we believe every cup tells a story. Nestled in the heart of the city, our café is a haven for coffee lovers and comfort seekers alike. We serve more than just drinks — we serve moments of calm in a busy world.
+          </p>
+          <p>
+            Our beans are ethically sourced and expertly brewed to bring out the richest flavors in every sip. Pair your drink with our freshly baked pastries, and you'll understand why our customers keep coming back.
+          </p>
+          <p>
+            Whether you're working remotely, catching up with friends, or enjoying a quiet moment alone, our warm ambiance and free Wi-Fi make Cozy Café the perfect escape. Come experience the charm of local hospitality — one cup at a time.
+          </p>
+          
+        </div>
+      </div>
+      
+  </section>
+  
+  <section class="contact-section" id="contact">
+    
+    <div class="contact-form">
+      <h2 class="heading"><span>Contact</span> us</h2>
+      <form id="contactForm" onsubmit="return handleSubmit(event)">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea rows="5" id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      
+    </div>
+    
+    
+    <div class="contact-info">
+      <h2 class="heading"><span>Visit</span> us</h2>
+      <p><strong>Cozy Café</strong></p>
+      <p>📍 123 Sivan kovil Street, Kodambakkam, Chennai 600007</p>
+      <p>📞 (044) 25386388</p>
+      <p>✉ hello@cozycafe.com</p>
+      <h2 class="heading"><span>Follow</span> us</h2>
+
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+        <a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <div class="footer-section">
+            <h4>Our Story</h4>
+            <p>At Cozy Café, we blend passion with flavor, creating the perfect atmosphere for relaxation and delicious food.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Our Specials</h4>
+          <ul>
+            <li>☕ Daily Brewed Coffee</li>
+            <li>🍰 Freshly Baked Pastries</li>
+            <li>🥐 Croissant & Sandwiches</li>
+            <li>🍵 Organic Teas</li>
+          </ul>
+        </div>
+       
+        <div class="footer-section">
+          <h4>Opening Hours</h4>
+          <ul>
+            <li>Monday - Friday: 8:00 AM - 6:00 PM</li>
+            <li>Saturday: 9:00 AM - 5:00 PM</li>
+            <li>Sunday: Closed</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Cozy Café | All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+  </footer>
+
+  <script>
+     window.onscroll = function () {
+      const btn = document.getElementById("topBtn");
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function handleSubmit(event) {
+    event.preventDefault();
+    alert("Thank you for your feedback! Your message has been sent.");
+    document.getElementById("contactForm").reset();
+  }
+
+  
+  let cart = []; 
+        let cartCount = 0;
+        let totalPrice = 0;
+
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.parentElement;
+                const itemId = card.getAttribute('data-id');
+                const itemName = card.querySelector('h3').textContent;
+                const itemPrice = parseFloat(card.querySelector('.price').textContent.replace('Rs.', ''));
+
+                const existingItem = cart.find(item => item.id === itemId);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({
+                        id: itemId,
+                        name: itemName,
+                        price: itemPrice,
+                        quantity: 1
+                    });
+                }
+
+                updateCart();
+                showToast('Rs.${itemName} added to the cart!');
+            });
+        });
+
+        function updateCart() {
+            const cartCountElement = document.getElementById('cart-count');
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const totalPriceElement = document.getElementById('total-price');
+
+            cartItemsContainer.innerHTML = '';
+
+            cart.forEach(item => {
+        const cartItemElement = document.createElement('div');
+        cartItemElement.classList.add('cart-item');
+        cartItemElement.innerHTML = `
+            <p>Rs.{item.name} - Rs.Rs.{item.price.toFixed(2)}</p>
+            <div class="quantity-controls">
+                <button class="decrement" onclick="decrementQuantity('Rs.{item.id}')">-</button>
+                <span>Rs.{item.quantity}</span>
+                <button class="increment" onclick="incrementQuantity('Rs.{item.id}')">+</button>
+                <button class="delete" onclick="removeItem('Rs.{item.id}')">🗑</button>
+            </div>
+        `;
+        cartItemsContainer.appendChild(cartItemElement);
+    });
+
+    cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+    cartCountElement.textContent = cartCount;
+    totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    totalPriceElement.textContent = totalPrice.toFixed(2);
+}
+
+function removeItem(itemId) {
+    cart = cart.filter(item => item.id !== itemId);
+    updateCart();
+    showToast('Item removed from cart.');
+}
+
+        function incrementQuantity(itemId) {
+            const item = cart.find(i => i.id === itemId);
+            if (item) {
+                item.quantity++;
+                updateCart();
+            }
+        }
+
+        function decrementQuantity(itemId) {
+            const item = cart.find(i => i.id === itemId);
+            if (item && item.quantity > 1) {
+                item.quantity--;
+                updateCart();
+            }
+        }
+
+        function toggleCartPage() {
+            const cartPage = document.getElementById('cart-page');
+            cartPage.style.display = cartPage.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function closeCartPage() {
+            const cartPage = document.getElementById('cart-page');
+            cartPage.style.display = 'none';
+            cart = [];
+            updateCart();
+        }
+        function checkout() {
+                const confirmCheckout = confirm('Do you want to proceed with the checkout?');
+    if (confirmCheckout) {
+        window.location.href = 'payment.html';  // Redirect to payment page
+    }
+}
+
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.className = 'toast';
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.remove();
+            }, 2000);
+        }
+
+  </script>
+</body>
+</html>

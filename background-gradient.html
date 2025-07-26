@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            margin-bottom: 20px;
+        }
+        .clip{
+            background-color: aqua;
+            border:solid red 5px;
+            padding:15px;
+            background-clip:content-box;
+        }
+        .origin{
+            background-image: url(circle.png);
+            border:solid red 5px;
+            padding:15px;
+            background-origin: content-box;
+        }
+        .linear{
+            width:100px;
+            height:100px;
+            background: linear-gradient(to right,#eb4d09,#fe7be8);
+
+        }
+        .radial{
+            width:100px;
+            height:100px;
+            background:radial-gradient(circle,blue,green);
+        }
+        .conial{
+            width:100px;
+            height:100px;
+            background:conic-gradient(red 0% 25%,blue 25% 50%,green 50% 75%,yellow 75% 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="linear"></div>
+    <div class="radial"></div>
+    <div class="conial"></div>
+    <div class="clip"><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At nulla iste, cum inventore accusamus hic ullam ipsam voluptate. Totam, id ipsa vitae iste ad officia aspernatur, obcaecati pariatur odit sit laboriosam maxime quidem, cupiditate blanditiis consequatur voluptate nemo! Adipisci doloribus error sint enim. Accusamus asperiores incidunt est corporis itaque harum nam eius recusandae fuga, obcaecati repellendus cum libero quod culpa vero iure aliquam repellat architecto! Praesentium hic corporis fuga illo id iusto eos, nobis aperiam. Repudiandae earum, suscipit, error, laboriosam nihil sequi vitae illum laudantium autem perferendis veniam consequatur deserunt! Saepe mollitia aut corrupti aliquid magni! Maxime in quia numquam?</p></div>
+    <div class="origin"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel soluta ipsum dicta delectus, doloribus error voluptatem modi accusantium? Perspiciatis ducimus, totam labore id ullam aliquam exercitationem consequatur iusto voluptatibus modi cumque quo soluta distinctio, minus libero, voluptate eos eligendi molestiae magni voluptatem cupiditate laboriosam inventore ea. Quisquam quasi iste unde veritatis magnam minima blanditiis laudantium, nesciunt facere nam facilis earum maiores! Quidem nihil eos temporibus architecto aspernatur aliquam iusto nobis dolores saepe sit, nemo numquam cumque nostrum aliquid nam reprehenderit, repudiandae odio beatae. Rerum, expedita! Nam soluta error explicabo ducimus eveniet dicta quam vel quaerat iste itaque, aut quae fugit.</p></div>
+
+</body>
+</html>

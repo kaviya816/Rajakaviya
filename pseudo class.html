@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a:link{
+            color:red;
+        }
+        a:visited{
+            color:green;
+        }
+        a:hover{
+            color:hotpink;
+        }
+        a.highlight:hover{
+            color:aquamarine;
+            font-size:22px;
+        }
+        a:active{
+            color:rgb(78,39,78);
+        }
+        p:first-child i{
+            color:brown;
+        }
+        input:checked{
+            height:50px;
+            width:50px;
+        }
+        input[type="text"]:disabled{
+            background-color: aquamarine;
+        }
+        input[type="text"]:enabled{
+            background-color: aqua;
+        }
+        input[type="text"]:focus{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <a href="download.jpg">link</a>
+    <!--<div>Hover over
+        <p>Found me...</p>
+    </div>-->
+    <p>h<i>ello</i></p> 
+    <p>hello...</p>
+    <div>
+        <p>hello...</p>
+        <p>hello...</p>
+    </div>   
+    <input type="text" name="disabled" disabled="disabled" value="India">
+    <input type="text">
+    <input type="radio" name="gender">Male 
+    <input type="radio" name="gender" > Female   
+</body>
+</html>

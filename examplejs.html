@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Introducing Javascript</h1>
+    <form id="name">
+        <label for="nameInput">Enter your Name:</label>
+        <input type="text" id="nameInput" required>
+        <button type="submit">submit</button>
+    </form>
+    <div id="output"></div>
+    <script>
+        document.getElementById("name").addEventListener("submit",function(event){
+            event.preventDefault();
+            var name=document.getElementById("nameInput").value;
+            var greeting="Hey!" + name + "I am Javascript";
+            document.getElementById("output").innerText=greeting;
+            document.getElementById("nameInput").value="";
+        });
+    </script>
+</body>
+</html>

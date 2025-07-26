@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Box</title>
+    <style>
+        .box {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+            position: absolute;
+            animation: movebox 4s linear infinite;
+        }
+
+        @keyframes movebox {
+            0%   { background-color: red; left: 0px; }
+            50%  { background-color: yellow; left: 200px; }
+            100% { background-color: blue; left: 0px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>
